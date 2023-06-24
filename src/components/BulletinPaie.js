@@ -11,7 +11,7 @@ const BulletinPaie = () => {
             <div className="col-md-9 border-right">
                 <div className="p-3 py-5">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h4 className="text-right" style="color:blue; text-decoration: underline;">Bulletin salarié</h4>
+                        <h4 className="text-right" style={{"color":"blue","textDecoration": "underline"}}>Bulletin salarié</h4>
                     </div>
                     <div className="row mt-2">
                         <div className="col-md-4">
@@ -52,7 +52,7 @@ const BulletinPaie = () => {
                     <hr/>
                     <button className="btn btn-warning"  >Calculer</button>
                     <br /><br />
-                    <table style="width:100%">
+                    <table style={{"width":"100%"}}>
                         <tr>
                             <th>Code</th>
                             <th>Intitulé</th>
