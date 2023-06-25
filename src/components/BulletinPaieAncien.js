@@ -28,31 +28,27 @@ const BulletinPaie = () => {
 
   const handleChangeMatricule=(e) => {
     fetchSalaries(e.target.value);
-    setNet("")
+   
   }
 
   const [net, setNet] = useState();
 
+const sum=useMemo(()=>{
+ 
+ return dataSalaries?.basepaie?.reduce((total,item)=>  
+      total+Number(item.montant),0)
+},[dataSalaries])
 
-const sumBase=useMemo(()=>{
+const tot=useMemo(()=>{
 
- return dataBulletins?.rubriquepaie?.reduce((total,item)=> { 
-    return (item.intitule==="CNSS") ? total+0 : total+Number(item.Base*item.nbjours);
-   }, 0);
+ return dataBulletins?.rubriquepaie?.reduce((total,item)=>  
+      total+Number(item.gain-item.retenue),0)
 },[dataBulletins])
 
-const sumCNSS=useMemo(()=>{
-    return dataBulletins?.rubriquepaie?.reduce((total,item)=> { 
-        return (item.intitule==="CNSS") ? total+sumBase*Number(item.Taux.substr(0,2))/100 : total+0 
-       }, 0);
-    },[dataBulletins])
-
-   console.log(sumCNSS)
-   
 const handleCalcul =useCallback(async () => { 
 
-  setNet(sumBase-sumCNSS)
-}, [dataBulletins]); 
+  setNet(sum+tot)
+}, [dataSalaries,dataBulletins]); 
 
   return (
       
@@ -162,11 +158,10 @@ const handleCalcul =useCallback(async () => {
                           
                            <td>{bp.intitule}</td>
                            <td>{bp.nbjours}</td>
-                           <td>{bp.intitule==="CNSS" ? sumBase:bp.Base}</td>
-                           <td>{bp.intitule==="CNSS" ? "":bp.Base*bp.nbjours}</td>
+                           <td>{bp.Base}</td>
                            <td>{bp.Taux}</td>
-                           <td>{bp.intitule==="CNSS" ? "":bp.Base*bp.nbjours}</td>
-                           <td>{bp.intitule==="CNSS" ? sumBase*Number(bp.Taux.substr(0,2))/100:""}</td>
+                           <td>{bp.gain}</td>
+                           <td>{bp.retenue}</td>
                        </tr>
                        )}
                       
